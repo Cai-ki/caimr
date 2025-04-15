@@ -5,7 +5,7 @@
 #include <mutex>
 #include <vector>
 
-#include "caimr/core/noncopyable.h"
+#include "caimr/common/noncopyable.h"
 #include "thread.h"
 
 class tpool : noncopyable {

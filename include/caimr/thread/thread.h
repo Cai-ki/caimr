@@ -6,7 +6,7 @@
 #include <string>
 #include <thread>
 
-#include "caimr/core/noncopyable.h"
+#include "caimr/common/noncopyable.h"
 
 class thread : noncopyable {
    public:

@@ -1,4 +1,4 @@
-#include "caimr/core/timestamp.h"
+#include "caimr/common/timestamp.h"
 
 #include <iostream>
 
