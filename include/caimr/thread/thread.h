@@ -21,7 +21,7 @@ class thread : noncopyable {
     const std::string& name() const { return name_; }
 
    private:
-    void setDefaultName();
+    void set_default();
     bool started_;
     bool joined_;
     std::shared_ptr<std::thread> thread_;

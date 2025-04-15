@@ -12,7 +12,7 @@ thread::thread(tfunc func, const std::string& name)
       tid_(0),
       func_(std::move(func)),
       name_(name) {
-    setDefaultName();
+    set_default();
 }
 
 thread::~thread() {
@@ -36,7 +36,7 @@ void thread::join() {
     thread_->join();
 }
 
-void thread::setDefaultName() {
+void thread::set_default() {
     if (name_.empty()) {
         char buf[32];
         snprintf(buf, sizeof(buf), "thread%d", ++tcount_);
