@@ -1,15 +1,15 @@
-source_dir = .
-build_dir = ${source_dir}/build
+SOURCE_DIR = .
+BUILD_DIR = ${SOURCE_DIR}/build
 
 build-all:
-	rm -rf ./build
+	rm -rf ${BUILD_DIR}
 	cmake -G "Unix Makefiles" \
 	-DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
 	-DCMAKE_C_COMPILER=gcc \
 	-DCMAKE_CXX_COMPILER=g++ \
-	-S ${source_dir} -B ${build_dir}
+	-S ${SOURCE_DIR} -B ${BUILD_DIR}
 
-	cmake --build ./build 
+	cmake --build ${BUILD_DIR}
 
 clang-format:
-	clang-format --style=Google --dump-config > ./.clang-format
+	clang-format --style=Google --dump-config > ${SOURCE_DIR}/.clang-format
