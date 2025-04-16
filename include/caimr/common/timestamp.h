@@ -12,9 +12,10 @@ class timestamp {
     std::string to_string() const;
     int64_t microseconds() const { return microseconds_; }
 
+    static const int microsecond = 1;
+    static const int millisecond = 1000;
+    static const int second = 1000000;
+
    private:
     int64_t microseconds_;
-    static const int microsecond_ = 1;
-    static const int millisecond_ = 1000;
-    static const int second_ = 1000000;
 };
