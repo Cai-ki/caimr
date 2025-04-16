@@ -33,7 +33,7 @@ class fixedbuffer : noncopyable {
     void reset() { cur_ = data_; }
     void bzero() { ::bzero(data_, sizeof(data_)); }
 
-    std::string to_string() const { return std::string(data_, cap()); }
+    std::string to_string() const { return std::string(data_, used()); }
 
    private:
     const char* end() const { return data_ + sizeof(data_); }
