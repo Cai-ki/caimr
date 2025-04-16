@@ -4,8 +4,6 @@
 
 #include <cstring>
 
-#include "caimr/thread/cthread.h"
-
 namespace thread_info {
 __thread char errnobuf_[512];
 __thread char time_[64];
