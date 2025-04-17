@@ -16,7 +16,7 @@ const char* errno_msg(int errno_) {
                       sizeof(thread_info::errnobuf_));
 }
 
-const char* level_name[logger::loglevel::LEVEL_COUNT]{
+constexpr const char* level_name[logger::loglevel::LEVEL_COUNT]{
     " [TRACE] ", " [DEBUG] ", " [INFO] ", " [WARN] ", " [ERROR] ", " [FATAL] ",
 };
 
