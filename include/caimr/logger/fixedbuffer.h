@@ -7,8 +7,9 @@
 
 #include "caimr/common/noncopyable.h"
 
-#define KB_BUFFER_SIZE 1024
-#define MB_BUFFER_SIZE 1048576
+namespace cai {
+constexpr int KB_BUFFER_SIZE = 1024;
+constexpr int MB_BUFFER_SIZE = 1048576;
 
 template <int SIZE>
 class fixedbuffer : noncopyable {
@@ -41,3 +42,4 @@ class fixedbuffer : noncopyable {
     char data_[SIZE];
     char* cur_;
 };
+}  // namespace cai

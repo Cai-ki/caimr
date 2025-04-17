@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-class TestClass : noncopyable {
+class TestClass : cai::noncopyable {
    public:
     TestClass() = default;
 };

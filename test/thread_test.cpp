@@ -5,11 +5,12 @@
 #include "caimr/thread/cthread.h"
 
 void task() {
-    std::cout << "thread: " << cthread::tid() << " is running" << std::endl;
+    std::cout << "thread: " << cai::cthread::tid() << " is running"
+              << std::endl;
 }
 
 int main() {
-    thread thread(task, "test");
+    cai::thread thread(task, "test");
     thread.start();
     thread.join();
     std::cout << "thread name: " << thread.name() << std::endl;

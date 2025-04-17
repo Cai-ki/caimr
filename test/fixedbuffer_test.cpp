@@ -3,7 +3,7 @@
 #include <iostream>
 
 int main() {
-    fixedbuffer<KB_BUFFER_SIZE> buf;
+    cai::fixedbuffer<cai::KB_BUFFER_SIZE> buf;
     buf.append("hello", 5);
 
     std::cout << "buffer capacity: " << buf.cap() << " size: " << buf.size()

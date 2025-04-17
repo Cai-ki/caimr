@@ -6,7 +6,7 @@
 #include "caimr/thread/cthread.h"
 
 int main() {
-    tpool pool;
+    cai::tpool pool;
     pool.set_tsize(4);
     pool.start();
 
@@ -14,7 +14,7 @@ int main() {
         pool.add([i] {
             std::cout << "task: " + std::to_string(i) +
                              " is executed by thread:" +
-                             std::to_string(cthread::tid())
+                             std::to_string(cai::cthread::tid())
                       << std::endl;
         });
     }

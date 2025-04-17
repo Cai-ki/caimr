@@ -5,7 +5,7 @@
 #include <iostream>
 
 int main() {
-    logstream stream;
+    cai::logstream stream;
     stream << "pi: " << 3.1415926535 << ", count: " << 1234567890 << '!';
     assert(stream.buffer().to_string() ==
            "pi: 3.1415926535, count: 1234567890!");

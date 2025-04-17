@@ -3,6 +3,7 @@
 #include <sys/syscall.h>
 #include <unistd.h>
 
+namespace cai {
 namespace cthread {
 extern __thread int tid_;  // 线程局部存储
 void cache();
@@ -11,3 +12,4 @@ inline int tid() {
     return tid_;
 }
 }  // namespace cthread
+}  // namespace cai

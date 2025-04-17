@@ -8,6 +8,7 @@
 #include "caimr/common/noncopyable.h"
 #include "thread.h"
 
+namespace cai {
 class tpool : noncopyable {
    public:
     using tfunc = std::function<void()>;
@@ -38,3 +39,4 @@ class tpool : noncopyable {
     bool running_;
     size_t tsize_;
 };
+}  // namespace cai

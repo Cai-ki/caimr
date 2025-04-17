@@ -2,8 +2,7 @@
 
 #include <semaphore.h>
 
-#include "caimr/thread/cthread.h"
-
+namespace cai {
 std::atomic_int thread::tcount_(0);
 
 thread::thread(tfunc func, const std::string& name)
@@ -24,7 +23,7 @@ void thread::start() {
     sem_t sem;
     sem_init(&sem, false, 0);
     thread_ = std::make_shared<std::thread>([&]() {
-        tid_ = cthread::tid();
+        tid_ = thread::tid();
         sem_post(&sem);
         func_();
     });
@@ -43,3 +42,4 @@ void thread::set_default() {
         name_ = buf;
     }
 }
+}  // namespace cai

@@ -3,7 +3,7 @@
 #include <iostream>
 
 int main() {
-    timestamp now = timestamp::now();
+    cai::timestamp now = cai::timestamp::now();
     std::cout << "now time: " << now.to_string() << std::endl;
     return 0;
 }

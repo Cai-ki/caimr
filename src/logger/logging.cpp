@@ -4,6 +4,7 @@
 
 #include <cstring>
 
+namespace cai {
 namespace thread_info {
 __thread char errnobuf_[512];
 __thread char time_[64];
@@ -19,7 +20,7 @@ const char* level_name[logger::loglevel::LEVEL_COUNT]{
     " [TRACE] ", " [DEBUG] ", " [INFO] ", " [WARN] ", " [ERROR] ", " [FATAL] ",
 };
 
-const int level_name_len[logger::loglevel::LEVEL_COUNT]{9, 9, 8, 8, 9, 9};
+constexpr int level_name_len[logger::loglevel::LEVEL_COUNT]{9, 9, 8, 8, 9, 9};
 
 logger::loglevel initloglevel() { return logger::INFO; }
 
@@ -90,3 +91,4 @@ void logger::set_level(logger::loglevel level) { g_loglevel = level; }
 void logger::set_output(ofunc out) { g_output = out; }
 
 void logger::set_flush(ffunc flush) { g_flush = flush; }
+}  // namespace cai

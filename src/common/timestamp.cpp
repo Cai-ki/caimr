@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <time.h>
 
+namespace cai {
 timestamp timestamp::now() {
     struct timeval tv;
     gettimeofday(&tv, NULL);
@@ -18,3 +19,4 @@ std::string timestamp::to_string() const {
              tm_time->tm_hour, tm_time->tm_min, tm_time->tm_sec);
     return buf;
 }
+}  // namespace cai

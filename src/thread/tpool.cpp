@@ -1,5 +1,6 @@
 #include "caimr/thread/tpool.h"
 
+namespace cai {
 tpool::tpool(const std::string& name)
     : mutex_(), cond_(), name_(name), running_(false), tsize_(0) {}
 
@@ -68,3 +69,4 @@ void tpool::run() {
         // LOG_WARN << "run throw exception";
     }
 }
+}  // namespace cai

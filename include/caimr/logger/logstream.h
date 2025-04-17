@@ -5,6 +5,7 @@
 #include "caimr/common/noncopyable.h"
 #include "fixedbuffer.h"
 
+namespace cai {
 class gtemplate : noncopyable {
    public:
     gtemplate() : data_(nullptr), len_(0) {}
@@ -45,10 +46,11 @@ class logstream : noncopyable {
     logstream& operator<<(const gtemplate& g);
 
    private:
-    static const int MAX_NUM_SIZE = 48;
+    static constexpr int MAX_NUM_SIZE = 48;
 
     template <typename T>
     void format_integer(T);
 
     fbuffer buffer_;
 };
+}  // namespace cai

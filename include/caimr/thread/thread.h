@@ -8,6 +8,7 @@
 
 #include "caimr/common/noncopyable.h"
 
+namespace cai {
 class thread : noncopyable {
    public:
     using tfunc = std::function<void()>;
@@ -30,3 +31,4 @@ class thread : noncopyable {
     std::string name_;
     static std::atomic_int tcount_;
 };
+}  // namespace cai

@@ -8,6 +8,7 @@
 #include "caimr/common/timestamp.h"
 #include "caimr/logger/logstream.h"
 
+namespace cai {
 class sfile {
    public:
     explicit sfile(const char *filename) : data_(filename) {
@@ -72,12 +73,14 @@ extern logger::loglevel g_loglevel;
 inline logger::loglevel loglevel() { return g_loglevel; }
 
 const char *errno_msg(int errno_);
+}  // namespace cai
 
-#define LOG_DEBUG                    \
-    if (loglevel() <= logger::DEBUG) \
-    logger(__FILE__, __LINE__, logger::DEBUG, __func__).stream()
-#define LOG_INFO \
-    if (loglevel() <= logger::INFO) logger(__FILE__, __LINE__).stream()
-#define LOG_WARN logger(__FILE__, __LINE__, logger::WARN).stream()
-#define LOG_ERROR logger(__FILE__, __LINE__, logger::ERROR).stream()
-#define LOG_FATAL logger(__FILE__, __LINE__, logger::FATAL).stream()
+#define LOG_DEBUG                                      \
+    if (cai::logger::loglevel() <= cai::logger::DEBUG) \
+    cai::logger(__FILE__, __LINE__, cai::logger::DEBUG, __func__).stream()
+#define LOG_INFO                                      \
+    if (cai::logger::loglevel() <= cai::logger::INFO) \
+    cai::logger(__FILE__, __LINE__).stream()
+#define LOG_WARN cai::logger(__FILE__, __LINE__, cai::logger::WARN).stream()
+#define LOG_ERROR cai::logger(__FILE__, __LINE__, cai::logger::ERROR).stream()
+#define LOG_FATAL cai::logger(__FILE__, __LINE__, cai::logger::FATAL).stream()

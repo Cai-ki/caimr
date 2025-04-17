@@ -4,6 +4,7 @@
 
 #include <string>
 
+namespace cai {
 class timestamp {
    public:
     timestamp() : microseconds_(0) {}
@@ -12,10 +13,11 @@ class timestamp {
     std::string to_string() const;
     int64_t microseconds() const { return microseconds_; }
 
-    static const int microsecond = 1;
-    static const int millisecond = 1000;
-    static const int second = 1000000;
+    static constexpr int microsecond = 1;
+    static constexpr int millisecond = 1000;
+    static constexpr int second = 1000000;
 
    private:
     int64_t microseconds_;
 };
+}  // namespace cai
