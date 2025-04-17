@@ -10,8 +10,6 @@ set(CMAKE_SHARED_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 set(INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
-include_directories(${src_dir})
-
 file(GLOB_RECURSE SRC_FILES ${SRC_DIR}/*.cpp)
 
 add_library(caimr SHARED ${SRC_FILES})
