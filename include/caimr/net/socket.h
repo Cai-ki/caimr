@@ -1,19 +1,17 @@
 #pragma once
 
 #include "caimr/common/noncopyable.h"
-
-class address;
-
 namespace cai {
+class address;
 class socket : noncopyable {
    public:
     explicit socket(int sockfd) : sockfd_(sockfd) {}
     ~socket();
 
     int fd() const { return sockfd_; }
-    void bind_address(const address &localaddr);
+    void bind_address(const cai::address &localaddr);
     void listen();
-    int accept(address *peeraddr);
+    int accept(cai::address *peeraddr);
 
     void shutdown_write();
 

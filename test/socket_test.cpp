@@ -19,7 +19,10 @@ void client_connect(uint16_t port) {
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(port);
     inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
-    connect(cli, (sockaddr*)&serv_addr, sizeof(serv_addr));
+    if (connect(cli, (sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
+        close(cli);
+        exit(EXIT_FAILURE);
+    }
     close(cli);
 }
 
@@ -35,7 +38,7 @@ void test_bind_listen() {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     cai::socket s(sockfd);
 
-    address addr(0);  // 初始端口为0
+    cai::address addr(0);  // 初始端口为0
     s.bind_address(addr);
     s.listen();
 
@@ -46,7 +49,7 @@ void test_bind_listen() {
     uint16_t port = ntohs(local_addr.sin_port);
 
     // 关键修改：用实际端口构造新地址
-    address real_addr(local_addr);  // 使用新构造函数
+    cai::address real_addr(local_addr);  // 使用新构造函数
 
     // 尝试绑定到真实端口应失败
     int testfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -82,7 +85,7 @@ void test_accept() {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     cai::socket s(sockfd);
 
-    address addr(0);  // 动态端口
+    cai::address addr(0);  // 动态端口
     s.bind_address(addr);
     s.listen();
 
@@ -96,7 +99,7 @@ void test_accept() {
     std::thread client(client_connect, port);
 
     // 接受连接
-    address peer;
+    cai::address peer;
     int connfd = s.accept(&peer);
     assert(connfd > 0);
 

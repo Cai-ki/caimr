@@ -11,7 +11,7 @@
 
 cai::socket::~socket() { ::close(sockfd_); }
 
-void cai::socket::bind_address(const address &localaddr) {
+void cai::socket::bind_address(const cai::address &localaddr) {
     if (0 != ::bind(sockfd_, (sockaddr *)localaddr.sock_addr(),
                     sizeof(sockaddr_in))) {
         LOG_FATAL << "bind sockfd: " << sockfd_ << " fail\n";
@@ -24,7 +24,7 @@ void cai::socket::listen() {
     }
 }
 
-int cai::socket::accept(address *peeraddr) {
+int cai::socket::accept(cai::address *peeraddr) {
     sockaddr_in addr;
     socklen_t len = sizeof(addr);
     ::memset(&addr, 0, sizeof(addr));

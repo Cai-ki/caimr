@@ -5,6 +5,7 @@
 
 #include <string>
 
+namespace cai {
 class address {
    public:
     explicit address(uint16_t port = 0, std::string ip = "127.0.0.1");
@@ -20,3 +21,4 @@ class address {
    private:
     sockaddr_in addr_;
 };
+}  // namespace cai
