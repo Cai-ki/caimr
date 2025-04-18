@@ -43,6 +43,8 @@ logger::impl::impl(logger::loglevel level, int errno_, const char* file,
       line_(line),
       basename_(file) {
     format_time();
+    stream_ << ' ' << gtemplate(basename_.data_, basename_.size_) << ':'
+            << line_;
     stream_ << gtemplate(level_name[level], level_name_len[level]);
 
     if (errno_ != 0) {
@@ -60,10 +62,7 @@ void logger::impl::format_time() {
     stream_ << gtemplate(thread_info::time_, 19);
 }
 
-void logger::impl::finish() {
-    stream_ << " - " << gtemplate(basename_.data_, basename_.size_) << ':'
-            << line_ << '\n';
-}
+void logger::impl::finish() { stream_ << '\n'; }
 
 logger::logger(const char* file, int line) : impl_(INFO, 0, file, line) {}
 
@@ -73,7 +72,7 @@ logger::logger(const char* file, int line, logger::loglevel level)
 logger::logger(const char* file, int line, logger::loglevel level,
                const char* func)
     : impl_(level, 0, file, line) {
-    impl_.stream_ << func << ' ';
+    impl_.stream_ << '{' << func << "} ";
 }
 
 logger::~logger() {

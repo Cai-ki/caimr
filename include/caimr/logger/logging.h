@@ -84,3 +84,37 @@ const char *errno_msg(int errno_);
 #define LOG_WARN cai::logger(__FILE__, __LINE__, cai::logger::WARN).stream()
 #define LOG_ERROR cai::logger(__FILE__, __LINE__, cai::logger::ERROR).stream()
 #define LOG_FATAL cai::logger(__FILE__, __LINE__, cai::logger::FATAL).stream()
+
+#define LOG_DEBUGF(format, ...)                                           \
+    do {                                                                  \
+        char buf[1024] = {0};                                             \
+        snprintf(buf, 1024, format, ##__VA_ARGS__);                       \
+        if (cai::logger::loglevel() <= cai::logger::DEBUG)                \
+            cai::logger(__FILE__, __LINE__, cai::logger::DEBUG, __func__) \
+                    .stream()                                             \
+                << buf;                                                   \
+    } while (0)
+#define LOG_INFOF(format, ...)                      \
+    do {                                            \
+        char buf[1024] = {0};                       \
+        snprintf(buf, 1024, format, ##__VA_ARGS__); \
+        LOG_INFO << buf;                            \
+    } while (0)
+#define LOG_WARNF(format, ...)                      \
+    do {                                            \
+        char buf[1024] = {0};                       \
+        snprintf(buf, 1024, format, ##__VA_ARGS__); \
+        LOG_WARN << buf;                            \
+    } while (0)
+#define LOG_ERRORF(format, ...)                     \
+    do {                                            \
+        char buf[1024] = {0};                       \
+        snprintf(buf, 1024, format, ##__VA_ARGS__); \
+        LOG_ERROR << buf;                           \
+    } while (0)
+#define LOG_FATALF(format, ...)                     \
+    do {                                            \
+        char buf[1024] = {0};                       \
+        snprintf(buf, 1024, format, ##__VA_ARGS__); \
+        LOG_FATAL << buf;                           \
+    } while (0)
