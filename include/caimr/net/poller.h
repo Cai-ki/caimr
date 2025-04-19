@@ -23,7 +23,7 @@ class poller : noncopyable {
 
     bool has_chan(chan* ch) const;
 
-    static poller* new_default_poller(eloop* loop) { return nullptr; };
+    static poller* new_default_poller(eloop* loop);
 
    protected:
     using chanmap = std::unordered_map<int, chan*>;
