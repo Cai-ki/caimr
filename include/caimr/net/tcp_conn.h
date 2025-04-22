@@ -1,6 +1,7 @@
 #pragma once
 
 #include <atomic>
+#include <cstdint>
 #include <memory>
 #include <string>
 
@@ -17,11 +18,12 @@ class socket;
 
 class tcp_conn : noncopyable, public std::enable_shared_from_this<tcp_conn> {
    public:
-    tcp_conn(eloop* loop, const std::string& name, int sockfd,
-             const address& local_addr, const address& peer_addr);
+    tcp_conn(eloop* loop, const uint32_t id, const std::string& name,
+             int sockfd, const address& local_addr, const address& peer_addr);
     ~tcp_conn();
 
     eloop* get_loop() const { return loop_; }
+    uint32_t id() const { return id_; }
     const std::string& name() const { return name_; }
     const address& local_address() const { return local_addr_; }
     const address& peer_address() const { return peer_addr_; }
@@ -58,6 +60,7 @@ class tcp_conn : noncopyable, public std::enable_shared_from_this<tcp_conn> {
     void shutdown_in_loop();
 
     eloop* loop_;
+    const uint32_t id_;
     const std::string name_;
     std::atomic<state> state_;
     bool reading_;

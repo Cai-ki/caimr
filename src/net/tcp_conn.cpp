@@ -21,9 +21,11 @@ eloop* check_loop_not_null(eloop* loop) {
 }
 }  // namespace
 
-tcp_conn::tcp_conn(eloop* loop, const std::string& name, int sockfd,
-                   const address& local_addr, const address& peer_addr)
+tcp_conn::tcp_conn(eloop* loop, const uint32_t id, const std::string& name,
+                   int sockfd, const address& local_addr,
+                   const address& peer_addr)
     : loop_(check_loop_not_null(loop)),
+      id_(id),
       name_(name),
       state_(CONNENTING),
       reading_(true),

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <atomic>
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <string>
@@ -46,7 +47,7 @@ class tcp_server : noncopyable {
     void remove_conn(const tcp_conn_ptr& conn);
     void remove_conn_in_loop(const tcp_conn_ptr& conn);
 
-    using conn_map = std::unordered_map<std::string, tcp_conn_ptr>;
+    using conn_map = std::unordered_map<uint32_t, tcp_conn_ptr>;
 
     eloop* loop_;  // main event loop
     const std::string ip_port_;
@@ -58,7 +59,7 @@ class tcp_server : noncopyable {
     write_complete_callback write_complete_callback_;
     thread_init_callback thread_init_callback_;
     std::atomic_int started_;
-    int next_conn_id_;
+    uint32_t next_conn_id_;
     conn_map conns_;
 };
 }  // namespace cai
