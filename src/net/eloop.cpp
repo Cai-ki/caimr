@@ -10,7 +10,7 @@
 #include "caimr/thread/cthread.h"
 
 namespace cai {
-__thread eloop* t_loop_in_this_thread = nullptr;
+thread_local eloop* t_loop_in_this_thread = nullptr;
 
 constexpr int POLL_TIME_MS = 10000;
 

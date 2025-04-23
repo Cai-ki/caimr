@@ -6,9 +6,9 @@
 
 namespace cai {
 namespace thread_info {
-__thread char errnobuf_[512];
-__thread char time_[64];
-__thread time_t last_second_;
+thread_local char errnobuf_[512];
+thread_local char time_[64];
+thread_local time_t last_second_;
 };  // namespace thread_info
 
 const char* errno_msg(int errno_) {

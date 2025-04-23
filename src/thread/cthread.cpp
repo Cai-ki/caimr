@@ -1,8 +1,10 @@
 #include "caimr/thread/cthread.h"
 
+#include "caimr/thread/thread.h"
+
 namespace cai {
 namespace cthread {
-__thread int tid_ = 0;
+thread_local int tid_ = 0;
 
 void cache() {
     if (tid_ == 0) {
