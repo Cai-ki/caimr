@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "caimr/common/noncopyable.h"
-#include "caimr/common/timestamp.h"
+#include "caimr/common/time.h"
 
 namespace cai {
 class chan;
@@ -17,7 +17,7 @@ class poller : noncopyable {
     poller(eloop* loop);
     virtual ~poller() = default;
 
-    virtual timestamp poll(int timeout_ms, chanlist* active_chs) = 0;
+    virtual time::time_point poll(int timeout_ms, chanlist* active_chs) = 0;
     virtual void update_chan(chan* ch) = 0;
     virtual void remove_chan(chan* ch) = 0;
 

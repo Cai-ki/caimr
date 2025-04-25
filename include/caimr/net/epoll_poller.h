@@ -4,7 +4,7 @@
 
 #include <vector>
 
-#include "caimr/common/timestamp.h"
+#include "caimr/common/time.h"
 #include "caimr/net/poller.h"
 
 namespace cai {
@@ -15,7 +15,7 @@ class epoll_poller : public poller {
     explicit epoll_poller(eloop* loop);
     ~epoll_poller() override;
 
-    timestamp poll(int timeout_ms, chanlist* active_chs) override;
+    time::time_point poll(int timeout_ms, chanlist* active_chs) override;
     void update_chan(chan* ch) override;
     void remove_chan(chan* ch) override;
 

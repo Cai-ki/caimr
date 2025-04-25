@@ -22,10 +22,10 @@ epoll_poller::epoll_poller(eloop* loop)
 
 epoll_poller::~epoll_poller() { ::close(epollfd_); }
 
-timestamp epoll_poller::poll(int timeout_ms, chanlist* active_chs) {
+time::time_point epoll_poller::poll(int timeout_ms, chanlist* active_chs) {
     int num_events = ::epoll_wait(epollfd_, &*events_.begin(),
                                   static_cast<int>(events_.size()), timeout_ms);
-    timestamp now(timestamp::now());
+    time::time_point now(time::clock::now());
     if (num_events > 0) {
         fill_active_chs(num_events, active_chs);
         if (num_events == events_.size()) {

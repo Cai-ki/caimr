@@ -18,7 +18,7 @@ void chan::update() { loop_->update_chan(this); }
 
 void chan::remove() { loop_->remove_chan(this); }
 
-void chan::handle_event(timestamp receive_time) {
+void chan::handle_event(time::time_point receive_time) {
     if (tied_) {
         std::shared_ptr<void> guard = tie_.lock();
         if (guard) {
@@ -29,7 +29,7 @@ void chan::handle_event(timestamp receive_time) {
     }
 }
 
-void chan::handle_event_with_guard(timestamp receive_time) {
+void chan::handle_event_with_guard(time::time_point receive_time) {
     LOG_INFOF("chan handle_event revents: %d\n", events_);
 
     if ((revents_ & EPOLLHUP) && !(revents_ & EPOLLIN)) {

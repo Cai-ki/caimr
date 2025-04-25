@@ -138,7 +138,7 @@ void tcp_conn::destroy_conn() {
     ch_->remove();
 }
 
-void tcp_conn::handle_read(timestamp receive_time) {
+void tcp_conn::handle_read(time::time_point receive_time) {
     int saved_errno = 0;
     ssize_t n = input_buf_.read_fd(ch_->fd(), &saved_errno);
     if (n > 0) {

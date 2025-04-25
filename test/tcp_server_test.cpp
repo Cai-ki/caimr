@@ -34,7 +34,8 @@ class echo_server {
         }
     }
 
-    void on_message(const tcp_conn_ptr &conn, buffer *buf, timestamp time) {
+    void on_message(const tcp_conn_ptr &conn, buffer *buf,
+                    time::time_point time) {
         std::string msg = buf->retrieve_all_as_string();
         conn->send(msg);
     }

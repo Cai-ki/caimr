@@ -8,7 +8,7 @@ namespace cai {
 namespace thread_info {
 thread_local char errnobuf_[512];
 thread_local char time_[64];
-thread_local time_t last_second_;
+thread_local time::time_point last_tp_;
 };  // namespace thread_info
 
 const char* errno_msg(int errno_) {
@@ -37,7 +37,7 @@ logger::ffunc g_flush = default_flush;
 
 logger::impl::impl(logger::loglevel level, int errno_, const char* file,
                    int line)
-    : time_(timestamp::now()),
+    : time_(time::clock::now()),
       stream_(),
       level_(level),
       line_(line),
@@ -53,13 +53,8 @@ logger::impl::impl(logger::loglevel level, int errno_, const char* file,
 }
 
 void logger::impl::format_time() {
-    timestamp now = timestamp::now();
-    time_t seconds =
-        static_cast<time_t>(now.microseconds() / timestamp::second);
-    int microseconds = static_cast<int>(now.microseconds() % timestamp::second);
-    memcpy(thread_info::time_, now.to_string().c_str(), now.to_string().size());
-    thread_info::last_second_ = seconds;
-    stream_ << gtemplate(thread_info::time_, 19);
+    thread_info::last_tp_ = time::clock::now();
+    stream_ << gtemplate(time::to_cstring(thread_info::last_tp_), 19);
 }
 
 void logger::impl::finish() { stream_ << '\n'; }

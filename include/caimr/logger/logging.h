@@ -5,7 +5,7 @@
 
 #include <functional>
 
-#include "caimr/common/timestamp.h"
+#include "caimr/common/time.h"
 #include "caimr/logger/logstream.h"
 
 namespace cai {
@@ -58,7 +58,7 @@ class logger {
         void format_time();
         void finish();
 
-        timestamp time_;
+        time::time_point time_;
         logstream stream_;
         loglevel level_;
         int line_;

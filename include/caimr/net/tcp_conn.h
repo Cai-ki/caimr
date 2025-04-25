@@ -6,7 +6,7 @@
 #include <string>
 
 #include "caimr/common/noncopyable.h"
-#include "caimr/common/timestamp.h"
+#include "caimr/common/time.h"
 #include "caimr/net/address.h"
 #include "caimr/net/buffer.h"
 #include "caimr/net/callbacks.h"
@@ -52,7 +52,7 @@ class tcp_conn : noncopyable, public std::enable_shared_from_this<tcp_conn> {
     enum state { DISCONNECTED, CONNENTING, CONNECTED, DISCONNENTING };
 
     void set_state(state state) { state_.store(state); }
-    void handle_read(timestamp receive_time);
+    void handle_read(time::time_point receive_time);
     void handle_write();
     void handle_close();
     void handle_error();

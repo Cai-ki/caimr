@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "caimr/common/noncopyable.h"
-#include "caimr/common/timestamp.h"
+#include "caimr/common/time.h"
 
 namespace cai {
 class eloop;
@@ -14,12 +14,12 @@ class eloop;
 class chan : noncopyable {
    public:
     using callback = std::function<void()>;
-    using rcallback = std::function<void(timestamp)>;
+    using rcallback = std::function<void(time::time_point)>;
 
     chan(eloop *loop, int fd);
     ~chan();
 
-    void handle_event(timestamp receive_time);
+    void handle_event(time::time_point receive_time);
 
     void set_read_callback(rcallback cb) { read_callback_ = std::move(cb); }
     void set_write_callback(callback cb) { write_callback_ = std::move(cb); }
@@ -65,7 +65,7 @@ class chan : noncopyable {
 
    private:
     void update();
-    void handle_event_with_guard(timestamp receive_time);
+    void handle_event_with_guard(time::time_point receive_time);
 
     static constexpr int NONE_EVENT = 0;
     static constexpr int READ_EVENT = EPOLLIN | EPOLLPRI;

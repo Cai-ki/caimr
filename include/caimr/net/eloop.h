@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "caimr/common/noncopyable.h"
-#include "caimr/common/timestamp.h"
+#include "caimr/common/time.h"
 #include "caimr/thread/cthread.h"
 
 namespace cai {
@@ -22,7 +22,7 @@ class eloop : public noncopyable {
 
     void loop();
     void quit();
-    timestamp poll_return_time() const { return poll_return_time_; }
+    time::time_point poll_return_time() const { return poll_return_time_; }
 
     void run_in_loop(functor cb);
     void queue_in_loop(functor cb);
@@ -44,7 +44,7 @@ class eloop : public noncopyable {
     std::atomic<bool> quit_;
     std::atomic<bool> calling_pending_functors_;
     const pid_t thread_id_;
-    timestamp poll_return_time_;
+    time::time_point poll_return_time_;
 
     std::unique_ptr<poller> poller_;
 
