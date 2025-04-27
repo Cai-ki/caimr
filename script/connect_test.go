@@ -10,7 +10,7 @@ import (
 )
 
 func TestEasyConnect(t *testing.T) {
-	conn, err := net.Dial("tcp", "localhost:8888")
+	conn, err := net.Dial("tcp", "localhost:9999")
 	if err != nil {
 		log.Fatal(err)
 	}

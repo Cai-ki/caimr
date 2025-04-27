@@ -12,12 +12,12 @@ class eloop;
 
 class poller : noncopyable {
    public:
-    using chanlist = std::vector<chan*>;
+    using chan_list = std::vector<chan*>;
 
     poller(eloop* loop);
     virtual ~poller() = default;
 
-    virtual time::time_point poll(int timeout_ms, chanlist* active_chs) = 0;
+    virtual time::time_point poll(int timeout_ms, chan_list* active_chs) = 0;
     virtual void update_chan(chan* ch) = 0;
     virtual void remove_chan(chan* ch) = 0;
 

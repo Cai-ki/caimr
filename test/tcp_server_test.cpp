@@ -46,7 +46,7 @@ class echo_server {
 
 int main() {
     eloop loop;
-    address addr(8888);
+    address addr(9999);
     echo_server server(&loop, addr, "echo_server");
     server.start();
     loop.loop();

@@ -22,7 +22,7 @@ epoll_poller::epoll_poller(eloop* loop)
 
 epoll_poller::~epoll_poller() { ::close(epollfd_); }
 
-time::time_point epoll_poller::poll(int timeout_ms, chanlist* active_chs) {
+time::time_point epoll_poller::poll(int timeout_ms, chan_list* active_chs) {
     int num_events = ::epoll_wait(epollfd_, &*events_.begin(),
                                   static_cast<int>(events_.size()), timeout_ms);
     time::time_point now(time::clock::now());
@@ -35,7 +35,8 @@ time::time_point epoll_poller::poll(int timeout_ms, chanlist* active_chs) {
     return now;
 }
 
-void epoll_poller::fill_active_chs(int num_events, chanlist* active_chs) const {
+void epoll_poller::fill_active_chs(int num_events,
+                                   chan_list* active_chs) const {
     for (int i = 0; i < num_events; ++i) {
         chan* ch = static_cast<chan*>(events_[i].data.ptr);
         ch->set_revents(events_[i].events);
