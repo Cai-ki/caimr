@@ -1,7 +1,9 @@
 package script
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"sync"
@@ -18,9 +20,9 @@ func TestEasyConnect(t *testing.T) {
 	read := sync.OnceFunc(func() {
 		go func() {
 			for {
-				buffer := make([]byte, 1024)
-				n, err := conn.Read(buffer)
-				log.Println("receive", n, err, string(buffer[:n]))
+				buf := make([]byte, 1024)
+				n, err := conn.Read(buf)
+				log.Println("receive", n, err, string(buf[:n]))
 			}
 		}()
 	})
@@ -30,6 +32,93 @@ func TestEasyConnect(t *testing.T) {
 		n, err := conn.Write([]byte("hello, world!" + fmt.Sprintf(" %d", cnt)))
 		log.Println("send:", n, err)
 		read()
-		time.Sleep(1 * time.Millisecond)
+		time.Sleep(1 * time.Second)
 	}
+}
+
+func BenchmarkEasyConnect(b *testing.B) {
+	conn, err := net.Dial("tcp", "localhost:9999")
+	if err != nil {
+		b.Fatal(err)
+	}
+
+	read := sync.OnceFunc(func() {
+		go func() {
+			buf := make([]byte, len("hello, world!"))
+			for {
+				n, err := io.ReadFull(conn, buf)
+				if err != nil {
+					b.Error(err)
+				}
+				if string(buf[:n]) != "hello, world!" {
+					b.Error("receive", n, err, string(buf[:n]))
+				}
+			}
+		}()
+	})
+
+	for i := 0; i < b.N; i++ {
+		n, err := conn.Write([]byte("hello, world!"))
+		if err != nil {
+			b.Error("send:", n, err)
+		}
+		read()
+	}
+}
+
+func BenchmarkManyConnect(b *testing.B) {
+	connCnt := 1000
+	queryPerConn := max(b.N/connCnt, 1)
+	bytesLen := 256 // 目前过高每包容量会导致 server 端 Segmentation fault (core dumped) ，估计 bug 是出自于 buffer 的长度限制，而且没有检查导致程序因非法内存访问而崩溃
+	bytesBuf := make([]byte, bytesLen)
+	for i := range bytesBuf {
+		bytesBuf[i] = byte(i % 10)
+	}
+
+	// msg := "hello, world!"
+	// bytesLen = len(msg)
+	// bytesBuf = []byte(msg)
+
+	b.Logf("%d conn and %d query per conn, each msg %d byte", connCnt, queryPerConn, bytesLen)
+
+	wg := sync.WaitGroup{}
+	wg.Add(connCnt * queryPerConn)
+
+	b.ResetTimer()
+	for i := 0; i < connCnt; i++ {
+		go func() {
+			conn, err := net.Dial("tcp", "localhost:9999")
+			if err != nil {
+				b.Error(err)
+				wg.Add(-queryPerConn)
+				return
+			}
+
+			read := sync.OnceFunc(func() {
+				go func() {
+					buf := make([]byte, bytesLen)
+					for {
+						n, err := io.ReadFull(conn, buf)
+						if err != nil {
+							b.Error(err)
+						}
+						if !bytes.Equal(buf[:n], bytesBuf) {
+							b.Error("receive", n, err, buf[:n], bytesBuf)
+						}
+						wg.Done()
+					}
+				}()
+			})
+
+			for j := 0; j < queryPerConn; j++ {
+				n, err := conn.Write(bytesBuf)
+				if err != nil {
+					b.Error("send:", n, err)
+				}
+				read()
+			}
+		}()
+	}
+
+	wg.Wait()
 }

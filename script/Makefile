@@ -1,8 +1,9 @@
 test:
 	go test -v .
 
-test_name = connect_test
-benchtime = 1s
+benchname = .
+testname = connect_test
+benchtime = 1000000x
 
 bench:
-	go test -v -bench=. ./${test_name}.go -benchtime=${benchtime}
+	go test -run -v -bench=${benchname} ./${testname}.go -benchtime=${benchtime}
