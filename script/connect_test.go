@@ -69,7 +69,7 @@ func BenchmarkEasyConnect(b *testing.B) {
 func BenchmarkManyConnect(b *testing.B) {
 	connCnt := 1000
 	queryPerConn := max(b.N/connCnt, 1)
-	bytesLen := 256 // 目前过高每包容量会导致 server 端 Segmentation fault (core dumped) ，估计 bug 是出自于 buffer 的长度限制，而且没有检查导致程序因非法内存访问而崩溃
+	bytesLen := 1024
 	bytesBuf := make([]byte, bytesLen)
 	for i := range bytesBuf {
 		bytesBuf[i] = byte(i % 10)
@@ -81,23 +81,28 @@ func BenchmarkManyConnect(b *testing.B) {
 
 	b.Logf("%d conn and %d query per conn, each msg %d byte", connCnt, queryPerConn, bytesLen)
 
-	wg := sync.WaitGroup{}
-	wg.Add(connCnt * queryPerConn)
+	wgConn := sync.WaitGroup{}
+	wgConn.Add(connCnt)
 
 	b.ResetTimer()
-	for i := 0; i < connCnt; i++ {
+	for _ = range connCnt {
 		go func() {
 			conn, err := net.Dial("tcp", "localhost:9999")
+
 			if err != nil {
 				b.Error(err)
-				wg.Add(-queryPerConn)
 				return
 			}
 
 			read := sync.OnceFunc(func() {
 				go func() {
+					defer func() {
+						// conn.Close()
+						wgConn.Done()
+					}()
+
 					buf := make([]byte, bytesLen)
-					for {
+					for _ = range queryPerConn {
 						n, err := io.ReadFull(conn, buf)
 						if err != nil {
 							b.Error(err)
@@ -105,12 +110,11 @@ func BenchmarkManyConnect(b *testing.B) {
 						if !bytes.Equal(buf[:n], bytesBuf) {
 							b.Error("receive", n, err, buf[:n], bytesBuf)
 						}
-						wg.Done()
 					}
 				}()
 			})
 
-			for j := 0; j < queryPerConn; j++ {
+			for _ = range queryPerConn {
 				n, err := conn.Write(bytesBuf)
 				if err != nil {
 					b.Error("send:", n, err)
@@ -120,5 +124,5 @@ func BenchmarkManyConnect(b *testing.B) {
 		}()
 	}
 
-	wg.Wait()
+	wgConn.Wait()
 }

@@ -70,10 +70,8 @@ class buffer {
             buf_.resize(writer_index_ + len);
         } else {
             size_t readable = readable_bytes();
-            std::copy_backward(
-                begin() + reader_index_, begin() + writer_index_,
-                begin() +
-                    CHEAP_PREPEND);  // 从后向前复制，std::copy()面对结果重叠部分可能导致未定义行为
+            std::copy(begin() + reader_index_, begin() + writer_index_,
+                      begin() + CHEAP_PREPEND);
             reader_index_ = CHEAP_PREPEND;
             writer_index_ = reader_index_ + readable;
         }
