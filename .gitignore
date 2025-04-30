@@ -1,5 +1,7 @@
 .cache
 .vscode
-build
+build/*
+!build/caimr
+!build/libcaimr.so
 *_test
 *.code-workspace
