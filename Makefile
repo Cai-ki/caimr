@@ -14,7 +14,7 @@ build-all:
 testname = tcp_server_test
 
 build-test:
-	g++ -std=c++14 -g -I./include -L./build -Wl,-rpath,./build ./test/${testname}.cpp -lcaimr -lpthread -o ./test/${testname}
+	g++ -std=c++14 -g -I./include -L./build -Wl,-rpath,./build ./test/${testname}.cpp -lcaimr -o ./test/${testname}
 
 run-test:
 	./test/${testname}

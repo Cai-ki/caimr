@@ -10,24 +10,24 @@ set(CMAKE_SHARED_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 set(INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
-set(BUILD_INCLUDE_DIR "${CMAKE_BINARY_DIR}/caimr")
+set(BUILD_INCLUDE_DIR "${CMAKE_BINARY_DIR}/${PROJECT_NAME}")
 
 file(GLOB_RECURSE SRC_FILES ${SRC_DIR}/*.cpp)
 
-add_library(caimr SHARED ${SRC_FILES})
+add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
 
-target_include_directories(caimr
+target_include_directories(${PROJECT_NAME}
     PUBLIC
     ${INCLUDE_DIR}
 )
 
 set_target_properties(${lib_name} PROPERTIES
-    OUTPUT_NAME "caimr"
+    OUTPUT_NAME "${PROJECT_NAME}"
     LINKER_LANGUAGE CXX
 )
 
 add_custom_command(
-    TARGET caimr
+    TARGET ${PROJECT_NAME}
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${INCLUDE_DIR}         
