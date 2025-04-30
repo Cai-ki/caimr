@@ -1,6 +1,6 @@
-#include "caimr/net/eloop_thread.h"
+#include "net/eloop_thread.h"
 
-#include "caimr/net/eloop.h"
+#include "net/eloop.h"
 
 namespace cai {
 eloop_thread::eloop_thread(const thread_init_callback& init_callback,

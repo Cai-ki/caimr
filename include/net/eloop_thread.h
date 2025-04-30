@@ -5,8 +5,8 @@
 #include <mutex>
 #include <string>
 
-#include "caimr/common/noncopyable.h"
-#include "caimr/thread/thread.h"
+#include "../common/noncopyable.h"
+#include "../thread/thread.h"
 
 namespace cai {
 class eloop;

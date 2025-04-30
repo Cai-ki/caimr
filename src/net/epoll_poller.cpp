@@ -1,10 +1,10 @@
-#include "caimr/net/epoll_poller.h"
+#include "net/epoll_poller.h"
 
 #include <sys/epoll.h>
 #include <unistd.h>
 
-#include "caimr/logger/logging.h"
-#include "caimr/net/chan.h"
+#include "logger/logging.h"
+#include "net/chan.h"
 
 namespace cai {
 constexpr int NEW = -1;

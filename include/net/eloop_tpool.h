@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "caimr/common/noncopyable.h"
+#include "../common/noncopyable.h"
 
 namespace cai {
 class eloop;

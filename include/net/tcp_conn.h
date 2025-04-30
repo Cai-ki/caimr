@@ -5,11 +5,11 @@
 #include <memory>
 #include <string>
 
-#include "caimr/common/noncopyable.h"
-#include "caimr/common/time.h"
-#include "caimr/net/address.h"
-#include "caimr/net/buffer.h"
-#include "caimr/net/callbacks.h"
+#include "../common/noncopyable.h"
+#include "../common/time.h"
+#include "./address.h"
+#include "./buffer.h"
+#include "./callbacks.h"
 
 namespace cai {
 class chan;

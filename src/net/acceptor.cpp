@@ -1,4 +1,4 @@
-#include "caimr/net/acceptor.h"
+#include "net/acceptor.h"
 
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -6,8 +6,8 @@
 
 #include <cerrno>
 
-#include "caimr/logger/logging.h"
-#include "caimr/net/address.h"
+#include "logger/logging.h"
+#include "net/address.h"
 
 namespace cai {
 static int create_nonblocking() {

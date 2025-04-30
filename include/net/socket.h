@@ -1,6 +1,6 @@
 #pragma once
 
-#include "caimr/common/noncopyable.h"
+#include "../common/noncopyable.h"
 namespace cai {
 class address;
 class socket : noncopyable {

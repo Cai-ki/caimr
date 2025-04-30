@@ -1,4 +1,4 @@
-#include "caimr/net/socket.h"
+#include "net/socket.h"
 
 #include <asm-generic/socket.h>
 #include <netinet/tcp.h>
@@ -6,8 +6,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "caimr/logger/logging.h"
-#include "caimr/net/address.h"
+#include "logger/logging.h"
+#include "net/address.h"
 
 cai::socket::~socket() { ::close(sockfd_); }
 

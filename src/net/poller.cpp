@@ -1,6 +1,6 @@
-#include "caimr/net/poller.h"
+#include "net/poller.h"
 
-#include "caimr/net/chan.h"
+#include "net/chan.h"
 
 namespace cai {
 poller::poller(eloop* loop) : owner_loop_(loop) {}

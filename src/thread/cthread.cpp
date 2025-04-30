@@ -1,4 +1,4 @@
-#include "caimr/thread/cthread.h"
+#include "thread/cthread.h"
 
 namespace cai {
 namespace cthread {

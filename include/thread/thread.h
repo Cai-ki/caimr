@@ -6,7 +6,7 @@
 #include <string>
 #include <thread>
 
-#include "caimr/common/noncopyable.h"
+#include "../common/noncopyable.h"
 
 namespace cai {
 class thread : noncopyable {

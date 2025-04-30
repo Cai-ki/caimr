@@ -7,14 +7,14 @@
 #include <string>
 #include <unordered_map>
 
-#include "caimr/common/noncopyable.h"
-#include "caimr/net/acceptor.h"
-#include "caimr/net/address.h"
-#include "caimr/net/buffer.h"
-#include "caimr/net/callbacks.h"
-#include "caimr/net/eloop.h"
-#include "caimr/net/eloop_tpool.h"
-#include "caimr/net/tcp_conn.h"
+#include "../common/noncopyable.h"
+#include "./acceptor.h"
+#include "./address.h"
+#include "./buffer.h"
+#include "./callbacks.h"
+#include "./eloop.h"
+#include "./eloop_tpool.h"
+#include "./tcp_conn.h"
 
 namespace cai {
 class tcp_server : noncopyable {

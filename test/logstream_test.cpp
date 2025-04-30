@@ -1,4 +1,4 @@
-#include "caimr/logger/logstream.h"
+#include "logger/logstream.h"
 
 #include <assert.h>
 

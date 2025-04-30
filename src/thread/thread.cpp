@@ -1,4 +1,4 @@
-#include "caimr/thread/thread.h"
+#include "thread/thread.h"
 
 #include <semaphore.h>
 

@@ -1,4 +1,4 @@
-#include "caimr/common/noncopyable.h"
+#include "common/noncopyable.h"
 
 #include <iostream>
 

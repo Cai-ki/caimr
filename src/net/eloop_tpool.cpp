@@ -1,6 +1,6 @@
-#include "caimr/net/eloop_tpool.h"
+#include "net/eloop_tpool.h"
 
-#include "caimr/net/eloop_thread.h"
+#include "net/eloop_thread.h"
 
 namespace cai {
 eloop_tpool::eloop_tpool(eloop* base_loop, const std::string& name)

@@ -1,4 +1,4 @@
-#include "caimr/net/buffer.h"
+#include "net/buffer.h"
 
 #include <sys/socket.h>
 #include <unistd.h>

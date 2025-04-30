@@ -1,4 +1,4 @@
-#include "caimr/logger/logging.h"
+#include "logger/logging.h"
 
 int main() {
     LOG_DEBUG << "LOG_DEBUG: num=" << 1;

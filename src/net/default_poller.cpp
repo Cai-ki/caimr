@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
-#include "caimr/net/epoll_poller.h"
-#include "caimr/net/poller.h"
+#include "net/epoll_poller.h"
+#include "net/poller.h"
 
 namespace cai {
 poller *poller::new_default_poller(eloop *loop) {

@@ -2,8 +2,8 @@
 
 #include <functional>
 
-#include "caimr/common/noncopyable.h"
-#include "caimr/net/chan.h"
+#include "../common/noncopyable.h"
+#include "./chan.h"
 #include "socket.h"
 
 namespace cai {

@@ -75,9 +75,9 @@ func BenchmarkManyConnect(b *testing.B) {
 		bytesBuf[i] = byte(i % 10)
 	}
 
-	// msg := "hello, world!"
-	// bytesLen = len(msg)
-	// bytesBuf = []byte(msg)
+	msg := "hello, world!"
+	bytesLen = len(msg)
+	bytesBuf = []byte(msg)
 
 	b.Logf("%d conn and %d query per conn, each msg %d byte", connCnt, queryPerConn, bytesLen)
 
@@ -97,7 +97,7 @@ func BenchmarkManyConnect(b *testing.B) {
 			read := sync.OnceFunc(func() {
 				go func() {
 					defer func() {
-						// conn.Close()
+						conn.Close()
 						wgConn.Done()
 					}()
 

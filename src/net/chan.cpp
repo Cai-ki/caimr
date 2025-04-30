@@ -1,7 +1,7 @@
-#include "caimr/net/chan.h"
+#include "net/chan.h"
 
-#include "caimr/logger/logging.h"
-#include "caimr/net/eloop.h"
+#include "logger/logging.h"
+#include "net/eloop.h"
 
 namespace cai {
 chan::chan(eloop *loop, int fd)

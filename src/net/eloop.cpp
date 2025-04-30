@@ -1,13 +1,13 @@
-#include "caimr/net/eloop.h"
+#include "net/eloop.h"
 
 #include <sys/eventfd.h>
 
 #include <memory>
 
-#include "caimr/logger/logging.h"
-#include "caimr/net/chan.h"
-#include "caimr/net/poller.h"
-#include "caimr/thread/cthread.h"
+#include "logger/logging.h"
+#include "net/chan.h"
+#include "net/poller.h"
+#include "thread/cthread.h"
 
 namespace cai {
 // TLS 确保 one thread per loop

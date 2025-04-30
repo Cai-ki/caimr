@@ -1,10 +1,10 @@
-#include "caimr/net/tcp_server.h"
+#include "net/tcp_server.h"
 
 #include <string>
 
-#include "caimr/logger/logging.h"
-#include "caimr/net/address.h"
-#include "caimr/net/callbacks.h"
+#include "logger/logging.h"
+#include "net/address.h"
+#include "net/callbacks.h"
 
 using namespace cai;
 

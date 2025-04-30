@@ -1,9 +1,9 @@
-#include "caimr/thread/tpool.h"
+#include "thread/tpool.h"
 
 #include <iostream>
 #include <string>
 
-#include "caimr/thread/cthread.h"
+#include "thread/cthread.h"
 
 int main() {
     cai::tpool pool;

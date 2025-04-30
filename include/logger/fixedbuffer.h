@@ -5,7 +5,7 @@
 
 #include <string>
 
-#include "caimr/common/noncopyable.h"
+#include "../common/noncopyable.h"
 
 namespace cai {
 constexpr int KB_BUFFER_SIZE = 1024;

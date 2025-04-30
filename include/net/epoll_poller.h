@@ -4,8 +4,8 @@
 
 #include <vector>
 
-#include "caimr/common/time.h"
-#include "caimr/net/poller.h"
+#include "../common/time.h"
+#include "./poller.h"
 
 namespace cai {
 class chan;

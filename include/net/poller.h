@@ -3,8 +3,8 @@
 #include <unordered_map>
 #include <vector>
 
-#include "caimr/common/noncopyable.h"
-#include "caimr/common/time.h"
+#include "../common/noncopyable.h"
+#include "../common/time.h"
 
 namespace cai {
 class chan;

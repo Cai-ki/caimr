@@ -5,8 +5,8 @@
 
 #include <functional>
 
-#include "caimr/common/time.h"
-#include "caimr/logger/logstream.h"
+#include "../common/time.h"
+#include "../logger/logstream.h"
 
 namespace cai {
 class sfile {

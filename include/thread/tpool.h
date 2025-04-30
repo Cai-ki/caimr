@@ -5,8 +5,8 @@
 #include <mutex>
 #include <vector>
 
-#include "caimr/common/noncopyable.h"
-#include "thread.h"
+#include "../common/noncopyable.h"
+#include "./thread.h"
 
 namespace cai {
 class tpool : noncopyable {

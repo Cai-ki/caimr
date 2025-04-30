@@ -5,9 +5,9 @@
 #include <mutex>
 #include <vector>
 
-#include "caimr/common/noncopyable.h"
-#include "caimr/common/time.h"
-#include "caimr/thread/cthread.h"
+#include "../common/noncopyable.h"
+#include "../common/time.h"
+#include "../thread/cthread.h"
 
 namespace cai {
 class chan;

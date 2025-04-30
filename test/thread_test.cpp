@@ -1,8 +1,8 @@
-#include "caimr/thread/thread.h"
+#include "thread/thread.h"
 
 #include <iostream>
 
-#include "caimr/thread/cthread.h"
+#include "thread/cthread.h"
 
 void task() {
     std::cout << "thread: " << cai::cthread::tid() << " is running"

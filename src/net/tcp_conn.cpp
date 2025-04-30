@@ -1,15 +1,15 @@
-#include "caimr/net/tcp_conn.h"
+#include "net/tcp_conn.h"
 
 #include <netinet/tcp.h>
 #include <sys/socket.h>
 
 #include <cerrno>
 
-#include "caimr/logger/logging.h"
-#include "caimr/net/address.h"
-#include "caimr/net/chan.h"
-#include "caimr/net/eloop.h"
-#include "caimr/net/socket.h"
+#include "logger/logging.h"
+#include "net/address.h"
+#include "net/chan.h"
+#include "net/eloop.h"
+#include "net/socket.h"
 
 namespace cai {
 namespace {

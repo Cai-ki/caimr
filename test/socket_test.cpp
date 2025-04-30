@@ -1,4 +1,4 @@
-#include "caimr/net/socket.h"
+#include "net/socket.h"
 
 #include <arpa/inet.h>
 #include <netinet/tcp.h>
@@ -10,7 +10,7 @@
 #include <iostream>
 #include <thread>
 
-#include "caimr/net/address.h"
+#include "net/address.h"
 
 // 辅助函数：创建简易客户端连接
 void client_connect(uint16_t port) {

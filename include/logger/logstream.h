@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "caimr/common/noncopyable.h"
-#include "fixedbuffer.h"
+#include "../common/noncopyable.h"
+#include "./fixedbuffer.h"
 
 namespace cai {
 class gtemplate : noncopyable {
