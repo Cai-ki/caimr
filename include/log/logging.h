@@ -6,7 +6,7 @@
 #include <functional>
 
 #include "../common/time.h"
-#include "../logger/logstream.h"
+#include "./logstream.h"
 
 namespace cai {
 class sfile {

@@ -1,6 +1,6 @@
 #include "thread/tpool.h"
 
-#include "logger/logging.h"
+#include "log/logging.h"
 namespace cai {
 tpool::tpool(const std::string& name)
     : mutex_(), cond_(), name_(name), running_(false), tsize_(0) {}
