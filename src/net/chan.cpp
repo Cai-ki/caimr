@@ -5,7 +5,13 @@
 
 namespace cai {
 chan::chan(eloop *loop, int fd)
-    : loop_(loop), fd_(fd), events_(0), revents_(0), index_(-1), tied_(false) {}
+    : loop_(loop),
+      fd_(fd),
+      events_(0),
+      revents_(0),
+      index_(-1),
+      tied_(false) {
+}  // index_(-1)，-1代表目前fd状态是已建立，已添加是1，已删除是2
 
 chan::~chan() {}
 
@@ -21,7 +27,8 @@ void chan::remove() { loop_->remove_chan(this); }
 void chan::handle_event(time::time_point receive_time) {
     if (tied_) {
         std::shared_ptr<void> guard = tie_.lock();
-        if (guard) {
+        if (guard) {  // 如果提升失败，就不做任何处理
+                      // 说明chan的回调依赖的对象已经死亡
             handle_event_with_guard(receive_time);
         }
     } else {
