@@ -10,6 +10,8 @@ namespace cai {
 class chan;
 class eloop;
 
+// 接口，本身作为一个抽象提供poller的基本能力，主要提供对chan的管辖
+// chan是对fd的抽象，poller同理是对底层select poll epoll的抽象封装
 class poller : noncopyable {
    public:
     using chan_list = std::vector<chan*>;
@@ -23,6 +25,7 @@ class poller : noncopyable {
 
     bool has_chan(chan* ch) const;
 
+    // 构造不同的poller
     static poller* new_default_poller(eloop* loop);
 
    protected:
