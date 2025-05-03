@@ -7,6 +7,7 @@
 #include "net/chan.h"
 
 namespace cai {
+// chan的状态
 constexpr int NEW = -1;
 constexpr int ADDED = 1;
 constexpr int DELETED = 2;
@@ -22,6 +23,7 @@ epoll_poller::epoll_poller(eloop* loop)
 
 epoll_poller::~epoll_poller() { ::close(epollfd_); }
 
+// 核心实现
 time::time_point epoll_poller::poll(int timeout_ms, chan_list* active_chs) {
     int num_events = ::epoll_wait(epollfd_, &*events_.begin(),
                                   static_cast<int>(events_.size()), timeout_ms);
@@ -38,7 +40,8 @@ time::time_point epoll_poller::poll(int timeout_ms, chan_list* active_chs) {
 void epoll_poller::fill_active_chs(int num_events,
                                    chan_list* active_chs) const {
     for (int i = 0; i < num_events; ++i) {
-        chan* ch = static_cast<chan*>(events_[i].data.ptr);
+        chan* ch =
+            static_cast<chan*>(events_[i].data.ptr);  // User data variable
         ch->set_revents(events_[i].events);
         active_chs->push_back(ch);
     }
@@ -66,6 +69,17 @@ void epoll_poller::remove_chan(chan* chan) {
 }
 
 void epoll_poller::update(int operation, chan* ch) {
+    // typedef union epoll_data {
+    //     void* ptr;
+    //     int fd;
+    //     uint32_t u32;
+    //     uint64_t u64;
+    // } epoll_data_t;
+
+    // struct epoll_event {
+    //     uint32_t events;   /* Epoll events */
+    //     epoll_data_t data; /* User data variable */
+    // } __EPOLL_PACKED;
     epoll_event event{};
     event.events = ch->events();
     event.data.ptr = ch;

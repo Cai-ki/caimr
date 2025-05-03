@@ -29,10 +29,12 @@ class poller : noncopyable {
     static poller* new_default_poller(eloop* loop);
 
    protected:
+    // 允许派生类访问
     using chanmap = std::unordered_map<int, chan*>;
     chanmap chs_;
 
    private:
+    // 私有变量，不允许访问
     eloop* owner_loop_;
 };
 }  // namespace cai
