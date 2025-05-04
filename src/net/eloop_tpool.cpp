@@ -20,7 +20,9 @@ void eloop_tpool::start(const thread_tnit_callback& cb) {
         snprintf(buf, sizeof buf, "%s%d", name_.c_str(), i);
         threads_.emplace_back(
             std::make_unique<eloop_thread>(cb, std::string(buf)));
-        loops_.push_back(threads_.back()->start_loop());
+        loops_.push_back(
+            threads_.back()
+                ->start_loop());  // 这里start_loop()时保证eloop初始化完毕
     }
 
     if (num_threads_ == 0 && cb) {
