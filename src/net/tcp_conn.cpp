@@ -34,6 +34,7 @@ tcp_conn::tcp_conn(eloop* loop, const uint32_t id, const std::string& name,
       local_addr_(local_addr),
       peer_addr_(peer_addr),
       high_water_mark_(64 * 1024 * 1024) {
+    // 设置chan的回调
     ch_->set_read_callback(
         std::bind(&tcp_conn::handle_read, this, std::placeholders::_1));
     ch_->set_write_callback(std::bind(&tcp_conn::handle_write, this));
@@ -60,25 +61,29 @@ void tcp_conn::send(const std::string& data) {
     }
 }
 
+// 核心逻辑
 void tcp_conn::send_in_loop(const void* data, size_t len) {
     ssize_t nwrote = 0;
     size_t remaining = len;
     bool fault_occurred = false;
 
+    // 之前调用过shutdown，不能再进行发送了
     if (state_.load() == DISCONNECTED) {
         LOG_WARNF("conn already closed, abort sending");
         return;
     }
 
+    // chan第一次写数据，且缓冲区没有待发送数据
     if (!ch_->is_writing() && output_buf_.readable_bytes() == 0) {
         nwrote = ::write(ch_->fd(), data, len);
         if (nwrote >= 0) {
             remaining = len - nwrote;
+            // 判断有没有一次性写完
             if (remaining == 0 && write_complete_callback_) {
                 loop_->queue_in_loop(
                     std::bind(write_complete_callback_, shared_from_this()));
             }
-        } else {
+        } else {  // nwrote = 0
             if (errno != EWOULDBLOCK) {
                 if (errno == EPIPE || errno == ECONNRESET) {
                     fault_occurred = true;
@@ -89,6 +94,7 @@ void tcp_conn::send_in_loop(const void* data, size_t len) {
         }
     }
 
+    // 说明一次性并没有发送完数据，剩余数据需要保存到缓冲区中，且需要改chan注册写事件
     if (!fault_occurred && remaining > 0) {
         size_t old_len = output_buf_.readable_bytes();
         if (old_len + remaining >= high_water_mark_ &&
@@ -99,7 +105,8 @@ void tcp_conn::send_in_loop(const void* data, size_t len) {
         }
         output_buf_.append(static_cast<const char*>(data) + nwrote, remaining);
         if (!ch_->is_writing()) {
-            ch_->enable_writing();
+            ch_->enable_writing();  // 这里一定要注册chan的写事件
+                                    // 否则poller不会给chann通知epollout
         }
     }
 }
@@ -112,7 +119,7 @@ void tcp_conn::shutdown() {
 }
 
 void tcp_conn::shutdown_in_loop() {
-    if (!ch_->is_writing()) {
+    if (!ch_->is_writing()) {  // 说明当前output_buf_的数据全部发送完成
         socket_->shutdown_write();
     }
 }
