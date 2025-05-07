@@ -58,7 +58,9 @@ class tcp_server : noncopyable {
     const std::string ip_port_;
     const std::string name_;
     std::unique_ptr<acceptor> acceptor_;
-    std::unique_ptr<eloop_tpool> thread_pool_;
+    std::shared_ptr<eloop_tpool>
+        thread_pool_;  // void new_conn(int sockfd, const address& peer_addr)
+                       // 会被其它线程执行，要用std::shared_ptr保证存活。
 
     close_callback conn_callback_;
     msg_callback msg_callback_;
